@@ -3,6 +3,7 @@
 set -euo pipefail
 
 PLUGIN_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)/.."
+NEW_PLUGIN_DIR="/buildkite/plugins/github-com-watsonjon-junit-annotate-buildkite-plugin/ruby"
 MAX_SIZE=100 # in KB
 
 echo "--- :junit: Download the junits"
@@ -30,6 +31,7 @@ buildkite-agent artifact download \
 
 echo "--- :junit: Processing the junits"
 echo "plugin dir: $PLUGIN_DIR/ruby:/src"
+echo "new plugin dir: $NEW_PLUGIN_DIR"
 echo "artifacts dir: $artifacts_dir:/junits"
 
 docker \
@@ -37,7 +39,7 @@ docker \
   run \
     --rm \
     --volume "$artifacts_dir:/junits" \
-    --volume "$PLUGIN_DIR/ruby:/src" \
+    --volume "$NEW_PLUGIN_DIR:/src" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN:-}" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT:-}" \
     ruby:2.6-alpine ruby /src/bin/annotate /junits \
