@@ -32,7 +32,7 @@ echo "--- :junit: Processing the junits"
 echo "plugin dir: $PLUGIN_DIR/ruby:/src"
 echo "artifacts dir: $artifacts_dir:/junits"
 
-ls -la $PLUGIN_DIR
+ls -la $PLUGIN_DIR/ruby/bin
 
 docker \
   --log-level "info" \
