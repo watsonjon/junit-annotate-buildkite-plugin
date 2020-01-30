@@ -39,10 +39,10 @@ docker \
   run \
     --rm \
     --volume "$artifacts_dir:/junits" \
-    --volume "$NEW_PLUGIN_DIR:/src" \
+    --volume "$NEW_PLUGIN_DIR:/xsrc" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN:-}" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT:-}" \
-    ruby:2.5-alpine ruby `ls -la /src/bin` /src/bin/annotate /junits \
+    ruby:2.5-alpine ruby `ls -la /xsrc/bin` /xsrc/bin/annotate /junits \
       > "$annotation_path"
 
 cat "$annotation_path"
