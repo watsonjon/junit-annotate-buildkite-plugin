@@ -32,6 +32,8 @@ echo "--- :junit: Processing the junits"
 echo "plugin dir: $PLUGIN_DIR/ruby:/src"
 echo "artifacts dir: $artifacts_dir:/junits"
 
+cd $PLUGIN_DIR
+
 docker \
   --log-level "info" \
   run \
