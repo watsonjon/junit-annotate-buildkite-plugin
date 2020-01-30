@@ -30,6 +30,7 @@ buildkite-agent artifact download \
 
 echo "--- :junit: Processing the junits"
 echo "plugin dir: $PLUGIN_DIR/ruby:/src"
+echo "artifacts dir: $artifacts_dir:/junits"
 
 docker \
   --log-level "error" \
