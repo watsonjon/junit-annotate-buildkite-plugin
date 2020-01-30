@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-echo "--- Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
-
 PLUGIN_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)/.."
 MAX_SIZE=100 # in KB
 
@@ -42,7 +40,7 @@ docker \
     --volume "$PLUGIN_DIR/ruby:/src" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN:-}" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT:-}" \
-    ruby:2.5-alpine ruby /src/bin/annotate /junits \
+    ruby:2.5-alpine ruby `ls #{$PLUGIN_DIR}/ruby`/src/bin/annotate /junits \
       > "$annotation_path"
 
 cat "$annotation_path"
