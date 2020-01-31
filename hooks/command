@@ -33,14 +33,14 @@ echo "plugin dir: $PLUGIN_DIR/ruby:/src"
 echo "artifacts dir: $artifacts_dir:/junits"
 
 docker \
-  --log-level "debug" \
+  --log-level "error" \
   run \
     --rm \
     --volume "$artifacts_dir:/junits" \
     --volume "$PLUGIN_DIR/ruby:/src" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_JOB_UUID_FILE_PATTERN:-}" \
     --env "BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT=${BUILDKITE_PLUGIN_JUNIT_ANNOTATE_FAILURE_FORMAT:-}" \
-    ruby:2.5-alpine ruby "/src/bin/annotate" "/junits" \
+    ruby:2.5-alpine ruby /src/bin/annotate /junits \
       > "$annotation_path"
 
 cat "$annotation_path"
